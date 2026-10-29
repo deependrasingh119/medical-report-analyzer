@@ -1,0 +1,133 @@
+batch_id: "t6"
+completed_tasks:
+  - "004-patient-report-preparation"
+blocked_tasks: []
+required_endpoints:
+  - method: GET
+    path: /api/v1/demo/explanation
+    source: ".github/modernize/rearchitecture/artifacts/t5-backend-api-contract.md"
+    status: implemented
+files_changed:
+  "004-patient-report-preparation":
+    - file: "components/patient-preparation.tsx"
+      change_type: "created"
+      description: "Added a fixed synthetic example view, GET integration, fixed-question checkboxes, local-only visit summary, error/retry states, and explicit safety labels."
+    - file: "app/reports/page.tsx"
+      change_type: "modified"
+      description: "Replaced the empty reports placeholder with the patient-preparation experience."
+    - file: "app/globals.css"
+      change_type: "modified"
+      description: "Added responsive patient-preparation, highlight, question, summary, loading, and error styles using existing CareLens tokens."
+    - file: "app/page.tsx"
+      change_type: "modified"
+      description: "Updated overview copy to describe the fixed synthetic example and prohibit real health information entry."
+    - file: "components/app-shell.tsx"
+      change_type: "modified"
+      description: "Renamed the report navigation item to Prepare for visit and clarified the synthetic-only sidebar boundary."
+    - file: "vitest.config.ts"
+      change_type: "modified"
+      description: "Configured the TypeScript @ alias and automatic JSX runtime for Vitest."
+    - file: "vitest.setup.ts"
+      change_type: "modified"
+      description: "Added explicit Testing Library cleanup after each test."
+    - file: "eslint.config.mjs"
+      change_type: "modified"
+      description: "Excluded the Next.js-generated next-env.d.ts from linting."
+    - file: "tests/patient-preparation.test.tsx"
+      change_type: "created"
+      description: "Added focused GET contract, no-file/no-text, predefined-selection, local-summary, and retry tests."
+    - file: "tests/app-shell.test.tsx"
+      change_type: "modified"
+      description: "Updated navigation assertions for the preparation destination label."
+    - file: ".github/modernize/rearchitecture/artifacts/t6-frontend.md"
+      change_type: "created"
+      description: "Added the task artifact index with scope, traceability, validation, and remaining gates."
+    - file: ".github/modernize/rearchitecture/artifacts/t6-frontend-batch-report.yaml"
+      change_type: "created"
+      description: "Recorded structured task traceability, endpoint evidence, changed files, and test results."
+    - file: ".github/modernize/rearchitecture/artifacts/checkpoints/t6-tasks-to-impl.yaml"
+      change_type: "created"
+      description: "Added the task 004 implementation checkpoint without overwriting the existing t4/t5 checkpoint."
+    - file: ".github/modernize/rearchitecture/team/frontend/log.md"
+      change_type: "created"
+      description: "Recorded frontend task discoveries and consumed learning."
+    - file: ".github/modernize/rearchitecture/learnings/frontend/safe-synthetic-preparation-demo.md"
+      change_type: "created"
+      description: "Recorded the fixed-fixture, safe-selection, and non-persistence UI pattern."
+    - file: ".github/modernize/rearchitecture/learnings/frontend/vitest-next-js-config.md"
+      change_type: "created"
+      description: "Recorded Vitest alias, JSX runtime, and DOM cleanup configuration findings."
+upstream_artifacts_consumed:
+  "004-patient-report-preparation":
+    - artifact: ".github/modernize/rearchitecture/.metadata/tasks.json#004-patient-report-preparation"
+      used_for: "Approved patient-preparation behavior and acceptance criteria."
+    - artifact: ".github/modernize/rearchitecture/plan.md#Delivery Boundaries and Acceptance"
+      used_for: "Synthetic-only, no-PHI, clinician-review, and no-persistence boundaries."
+    - artifact: ".github/modernize/rearchitecture/clarification-answers.md#F4/F5/F7"
+      used_for: "Existing visual tokens, WCAG 2.2 AA target, and responsive device scope."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t1-tester.md#Root Snapshot Manifest"
+      used_for: "Root prototype preservation baseline."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t5-backend-api-contract.md#Endpoint"
+      used_for: "Bodyless synthetic explanation GET contract."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t5-backend-api-contract.md#Safety and Data Boundary"
+      used_for: "No file input, real report handling, storage, or live AI."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t5-backend-batch-report.yaml#warnings"
+      used_for: "Observed Vitest alias failure to remediate."
+    - artifact: "app/reports/page.tsx; components/app-shell.tsx; app/globals.css; vitest.config.ts; tests/app-shell.test.tsx"
+      used_for: "Existing frontend foundation patterns; no separate t3 artifact was available."
+    - artifact: "backend/app/explanations.py"
+      used_for: "Fixed fixture identifier, response shape, labels, and question strings."
+evidence_mapping:
+  "004-patient-report-preparation":
+    - upstream: "tasks.json#004-patient-report-preparation.requirements"
+      output: "components/patient-preparation.tsx"
+      evidence: "API-driven synthetic example and fixed checkbox questions; no file/text input, persistence, or send action."
+    - upstream: "t5-backend-api-contract.md#Endpoint"
+      output: "components/patient-preparation.tsx and tests/patient-preparation.test.tsx"
+      evidence: "Tests assert bodyless GET request; live API probe returned HTTP 200."
+    - upstream: "plan.md#Delivery Boundaries and Acceptance"
+      output: "components/patient-preparation.tsx"
+      evidence: "Synthetic/illustrative and clinician-review notices; no real report workflow."
+    - upstream: "clarification-answers.md#F4/F5/F7"
+      output: "app/globals.css and semantic controls in components/patient-preparation.tsx"
+      evidence: "CareLens tokens, responsive single-column layout, labeled checkbox controls, focus styling."
+    - upstream: "t5-backend-batch-report.yaml#warnings"
+      output: "vitest.config.ts and vitest.setup.ts"
+      evidence: "Vitest alias and JSX issues resolved; explicit cleanup isolates tests."
+traceability:
+  - requirement: "004-patient-report-preparation"
+    plan_item: "Safe Demo Implementation: patient report preparation and consultation summary"
+    task: "004-patient-report-preparation"
+    files:
+      - "components/patient-preparation.tsx"
+      - "app/reports/page.tsx"
+      - "app/globals.css"
+      - "tests/patient-preparation.test.tsx"
+    status: "completed"
+protocol_violation: false
+errors: []
+warnings:
+  - severity: WARNING
+    message: "Browser smoke validation was attempted but could not launch: Playwright Chromium executable is missing. No browser download was approved or attempted; browser validation remains for the validation phase."
+  - severity: WARNING
+    message: "Next.js build selected the existing parent-directory C:\\Users\\snoha\\package-lock.json as its tracing root; external files were not modified."
+  - severity: INFO
+    message: "The t1 README.md fingerprint differs due to an upstream t5 README change documented in t5-backend-batch-report.yaml; t6 did not edit README.md. Other t1 root prototype fingerprints match."
+test_results:
+  "004-patient-report-preparation":
+    command: "npm test"
+    passed: 6
+    failed: 0
+    skipped: 0
+    failures: []
+additional_checks:
+  - command: "npm run lint"
+    result: "PASS"
+  - command: "npm run typecheck"
+    result: "PASS"
+  - command: "npm run build"
+    result: "PASS; Next.js 15.5.28; parent lockfile tracing-root warning noted."
+  - command: "curl.exe --silent --show-error --max-time 10 --dump-header - --output NUL --write-out HTTP_STATUS=%{http_code} --header Origin: http://127.0.0.1:3000 http://127.0.0.1:8765/api/v1/demo/explanation"
+    result: "PASS; HTTP 200 and Access-Control-Allow-Origin: http://127.0.0.1:3000."
+  - command: "appmod-debug-app-in-browser on http://127.0.0.1:3000/reports"
+    result: "UNVERIFIED; browser launch failed because the Playwright Chromium executable was not installed."

@@ -1,0 +1,112 @@
+batch_id: "t5"
+completed_tasks:
+  - "t5"
+blocked_tasks: []
+files_changed:
+  - file: ".gitignore"
+    change_type: "modified"
+    description: "Added environment, secrets, Python cache, frontend build, and test-artifact exclusions while preserving node_modules exclusion."
+  - file: "README.md"
+    change_type: "modified"
+    description: "Added local Next.js/FastAPI run instructions and synthetic-only endpoint boundary without removing prototype guidance."
+  - file: "backend/app/explanations.py"
+    change_type: "created"
+    description: "Added a fixed deterministic synthetic explanation response with no request data."
+  - file: "backend/app/main.py"
+    change_type: "modified"
+    description: "Mounted the synthetic explanation route under the existing /api/v1 prefix."
+  - file: "backend/tests/test_explanations.py"
+    change_type: "created"
+    description: "Added tests for deterministic response, labels, method rejection, no body echo, and bodyless OpenAPI contract."
+  - file: "backend/tests/test_main.py"
+    change_type: "modified"
+    description: "Updated OpenAPI route inventory assertion to preserve the health route and include the approved demo endpoint."
+  - file: "package-lock.json"
+    change_type: "created"
+    description: "Generated from the exact pinned package manifest to enable npm ci and frontend validation."
+  - file: ".github/modernize/rearchitecture/artifacts/t4-backend-reverification.md"
+    change_type: "created"
+    description: "Recorded non-destructive t4 foundation reverification."
+  - file: ".github/modernize/rearchitecture/artifacts/t5-backend.md"
+    change_type: "created"
+    description: "Task report/index with upstream traceability, results, and remaining gates."
+  - file: ".github/modernize/rearchitecture/artifacts/t5-backend-api-contract.md"
+    change_type: "created"
+    description: "Documented fixed synthetic explanation endpoint contract."
+  - file: ".github/modernize/rearchitecture/artifacts/t5-backend-batch-report.yaml"
+    change_type: "created"
+    description: "Structured task, test, and endpoint evidence."
+upstream_artifacts_consumed:
+  - artifact: ".github/modernize/rearchitecture/plan.md"
+    used_for: "Synthetic-only, no-PHI, clinician-review, and deferred integration boundaries."
+  - artifact: ".github/modernize/rearchitecture/.metadata/tasks.json"
+    used_for: "Approved task 003 requirements and acceptance criteria."
+  - artifact: ".github/modernize/rearchitecture/clarification-answers.md"
+    used_for: "Privacy and clinical-validation conditions."
+  - artifact: ".github/modernize/rearchitecture/artifacts/t1-tester.md"
+    used_for: "Confirmed no pre-existing backend or report processing."
+  - artifact: ".github/modernize/rearchitecture/artifacts/t4-backend-api-contract.md"
+    used_for: "Preserved versioned API and no-PHI boundaries."
+  - artifact: ".github/modernize/rearchitecture/artifacts/t4-backend-provider-database-decisions.md"
+    used_for: "Kept auth, database, and live AI deferred."
+  - artifact: ".github/modernize/rearchitecture/artifacts/t4-backend-reverification.md"
+    used_for: "Verified t4 foundation before extending routes."
+evidence_mapping:
+  - upstream: "tasks.json#003-safe-demo-backend.requirements"
+    output: "backend/app/explanations.py and backend/tests/test_explanations.py"
+    evidence: "Fixed synthetic explanation, safety labels, discussion questions, deterministic output."
+  - upstream: "plan.md#Delivery Boundaries and Acceptance"
+    output: "backend/app/main.py and backend/tests/test_explanations.py"
+    evidence: "GET-only route has no request body or parameters; POST returns 405 with no body echo."
+  - upstream: "t4-backend-api-contract.md#API Contract"
+    output: "backend/app/main.py"
+    evidence: "Health route preserved and new route stays under /api/v1."
+  - upstream: "t4-backend-provider-database-decisions.md#Activation Gates"
+    output: "backend/app/explanations.py"
+    evidence: "No persistence, identity provider, external service, or live AI integration introduced."
+summary:
+  total_tasks: 1
+  completed_tasks: 1
+  in_progress_tasks: 0
+  pending_tasks: 0
+  completion_percentage: 100.0
+traceability:
+  - requirement: "tasks.json#003-safe-demo-backend.requirements"
+    plan_item: "Safe Demo Implementation: synthetic-only explanation API"
+    task: "t5"
+    files:
+      - "backend/app/explanations.py"
+      - "backend/app/main.py"
+      - "backend/tests/test_explanations.py"
+      - ".github/modernize/rearchitecture/artifacts/t5-backend-api-contract.md"
+    status: "completed"
+test_results:
+  command: "& '.\\.venv\\Scripts\\python.exe' -m pytest backend\\tests -q"
+  passed: 8
+  failed: 0
+  skipped: 0
+  failures: []
+additional_checks:
+  - command: "& '.\\.venv\\Scripts\\python.exe' -m compileall -q backend"
+    result: "PASS"
+  - command: "& '.\\.venv\\Scripts\\python.exe' -m pip check"
+    result: "PASS; no broken requirements"
+  - command: "Local Uvicorn probes with --no-access-log"
+    result: "GET /api/v1/demo/explanation=200; GET /openapi.json=200; POST /api/v1/demo/explanation=405 with no payload echo."
+  - command: "npm ci"
+    result: "PASS; installed from generated lockfile; audit summary reported five vulnerabilities."
+  - command: "npm run build"
+    result: "PASS; Next.js 15.5.28 build succeeded with parent-lockfile tracing-root warning."
+  - command: "npm run lint"
+    result: "PASS"
+  - command: "npm run typecheck"
+    result: "PASS"
+  - command: "npm test"
+    result: "FAIL; Vitest could not resolve @/lib/utils from components/ui/button.tsx before tests executed; escalated to frontend/coordinator."
+warnings:
+  - severity: HIGH
+    message: "Frontend npm audit reports 2 moderate, 1 high, and 2 critical vulnerabilities. Remediation remains with t9; available Next.js fix proposes major version 16, which must not replace the approved 15 target."
+  - severity: WARNING
+    message: "Frontend test configuration lacks the @/* alias in Vitest and currently prevents unit tests from running."
+  - severity: WARNING
+    message: "Next.js build detects an existing C:\\Users\\snoha\\package-lock.json outside the workspace and selects its directory as tracing root; external files were not modified."

@@ -1,0 +1,135 @@
+batch_id: "t7"
+completed_tasks:
+  - "t7"
+blocked_tasks: []
+files_changed:
+  t7:
+    - file: "backend/app/clinician_cases.py"
+      change_type: "created"
+      description: "Added fixed synthetic read-only clinician list/detail routes, response models, and exact demo-role enforcement."
+    - file: "backend/app/main.py"
+      change_type: "modified"
+      description: "Mounted clinician routes under /api/v1 and allowed the demo role header for configured local CORS origins."
+    - file: "backend/tests/test_clinician_cases.py"
+      change_type: "created"
+      description: "Added role, deterministic response, unknown ID, bodyless contract, POST rejection, and no-echo tests."
+    - file: "backend/tests/test_main.py"
+      change_type: "modified"
+      description: "Preserved route inventory assertions and verified local CORS for X-Demo-Role."
+    - file: ".github/modernize/rearchitecture/artifacts/t7-backend-api-contract.md"
+      change_type: "created"
+      description: "Documented backend case API contract, synthetic boundary, authorization behavior, evidence, and gates."
+    - file: ".github/modernize/rearchitecture/artifacts/t7-backend.md"
+      change_type: "created"
+      description: "Added t7 implementation summary, upstream traceability, evidence mapping, and test results."
+    - file: ".github/modernize/rearchitecture/artifacts/t7-backend-batch-report.yaml"
+      change_type: "created"
+      description: "Recorded structured implementation, test, and runtime evidence."
+    - file: ".github/modernize/rearchitecture/artifacts/checkpoints/tasks-to-impl.yaml"
+      change_type: "modified"
+      description: "Preserved prior t4 traceability and consolidated completed t5/t7 evidence."
+    - file: ".github/modernize/rearchitecture/team/backend/log.md"
+      change_type: "modified"
+      description: "Appended t7 discoveries, correction, pattern, and consumed learning."
+    - file: ".github/modernize/rearchitecture/learnings/backend/clinician-demo-role-boundary.md"
+      change_type: "created"
+      description: "Recorded reusable guidance for non-production synthetic role boundaries."
+upstream_artifacts_consumed:
+  t7:
+    - artifact: ".github/modernize/rearchitecture/plan.md"
+      used_for: "Synthetic-only, no-PHI, no production integrations, and clinician review safety boundary."
+    - artifact: ".github/modernize/rearchitecture/.metadata/tasks.json"
+      used_for: "Approved 005-clinician-demo-workflow requirements and acceptance scope."
+    - artifact: ".github/modernize/rearchitecture/clarification-answers.md"
+      used_for: "Deferred identity/database and production-data gates."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t4-backend-api-contract.md"
+      used_for: "Preserved /api/v1, read-only boundary, and CORS limitations."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t5-backend-api-contract.md"
+      used_for: "Preserved explanation endpoint and synthetic/no-request-body convention."
+    - artifact: "backend/tests/test_main.py and backend/tests/test_explanations.py"
+      used_for: "Existing health, explanation, route inventory, CORS, and no-body behavior."
+    - artifact: ".github/modernize/rearchitecture/learnings/backend/api-boundary-contract.md"
+      used_for: "Versioned API and privacy boundary conventions."
+    - artifact: ".github/modernize/rearchitecture/board.md"
+      used_for: "Read-only task order/status context."
+evidence_mapping:
+  t7:
+    - upstream: "tasks.json#005-clinician-demo-workflow.requirements"
+      output: "backend/app/clinician_cases.py and backend/tests/test_clinician_cases.py"
+      evidence: "Fixed synthetic list/detail, exact clinician role enforcement, patient/unknown role rejection, unknown ID response, and no-echo behavior."
+    - upstream: "plan.md#Delivery Boundaries and Acceptance"
+      output: "backend/app/clinician_cases.py and backend/tests/test_clinician_cases.py"
+      evidence: "Response data is static and synthetic; routes are bodyless GETs; POST is rejected; no persistence or clinical decision language."
+    - upstream: "t4-backend-api-contract.md#API Contract and t5-backend-api-contract.md#Endpoint"
+      output: "backend/app/main.py and backend/tests/test_main.py"
+      evidence: "Health and explanation route paths remain registered under /api/v1 and all four routes appear in OpenAPI."
+    - upstream: "t4-backend-api-contract.md#Frontend Development Boundary"
+      output: "backend/app/main.py and backend/tests/test_main.py"
+      evidence: "Only configured local origins are allowed; credentials remain disabled; X-Demo-Role is allowed for local calls."
+traceability:
+  - requirement: "tasks.json#005-clinician-demo-workflow.requirements"
+    plan_item: "Safe Demo Implementation: clinician case-review backend slice"
+    task: "t7"
+    files:
+      - "backend/app/clinician_cases.py"
+      - "backend/app/main.py"
+      - "backend/tests/test_clinician_cases.py"
+      - "backend/tests/test_main.py"
+      - ".github/modernize/rearchitecture/artifacts/t7-backend-api-contract.md"
+    status: "completed"
+protocol_violation: false
+errors: []
+warnings:
+  - severity: "INFO"
+    message: "X-Demo-Role is a forgeable demo-only boundary, not production authentication; identity and real-data enablement remain deferred."
+test_results:
+  t7:
+    command: "& '.\\.venv\\Scripts\\python.exe' -m pytest backend\\tests -q"
+    passed: 18
+    failed: 0
+    skipped: 0
+    failures: []
+additional_checks:
+  - command: "& '.\\.venv\\Scripts\\python.exe' -m compileall -q backend"
+    result: "PASS"
+  - command: "& '.\\.venv\\Scripts\\python.exe' -m pip check"
+    result: "PASS; no broken requirements"
+  - command: "PowerShell here-string piped to & '.\\.venv\\Scripts\\python.exe' - (HTTPX live probes)"
+    result: "PASS; health 200, explanation 200, missing role 401, patient role 403, clinician list 200, clinician detail 200, unknown case 404, POST 405, OpenAPI 200; no requestBody on either case GET; existing routes present."
+endpoint_probes:
+  - method: "GET"
+    path: "/api/v1/health"
+    status: 200
+    result: "PASS"
+  - method: "GET"
+    path: "/api/v1/demo/explanation"
+    status: 200
+    result: "PASS; existing endpoint preserved"
+  - method: "GET"
+    path: "/api/v1/demo/clinician/cases"
+    status: 401
+    result: "PASS; rejected when demo role is missing"
+  - method: "GET"
+    path: "/api/v1/demo/clinician/cases"
+    status: 403
+    result: "PASS; patient role forbidden"
+  - method: "GET"
+    path: "/api/v1/demo/clinician/cases"
+    status: 200
+    result: "PASS; clinician role returns deterministic synthetic list"
+  - method: "GET"
+    path: "/api/v1/demo/clinician/cases/synthetic-case-001"
+    status: 200
+    result: "PASS; clinician role returns fixed synthetic detail"
+  - method: "GET"
+    path: "/api/v1/demo/clinician/cases/unknown-marker"
+    status: 404
+    result: "PASS; generic non-echoing not-found response"
+  - method: "POST"
+    path: "/api/v1/demo/clinician/cases"
+    status: 405
+    result: "PASS; body payload not echoed"
+  - method: "GET"
+    path: "/openapi.json"
+    status: 200
+    result: "PASS; case GET operations declare no request body and prior routes remain present"

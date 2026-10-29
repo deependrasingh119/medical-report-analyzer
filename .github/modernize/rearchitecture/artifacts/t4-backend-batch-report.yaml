@@ -1,0 +1,116 @@
+batch_id: "t4"
+completed_tasks:
+  - "t4"
+blocked_tasks: []
+files_changed:
+  t4:
+    - file: "backend/requirements.txt"
+      change_type: "created"
+      description: "Pinned FastAPI and Uvicorn runtime dependencies."
+    - file: "backend/requirements-dev.txt"
+      change_type: "created"
+      description: "Pinned HTTPX and pytest test dependencies."
+    - file: "backend/requirements-lock.txt"
+      change_type: "created"
+      description: "Pinned all resolved runtime and test dependency versions."
+    - file: "backend/__init__.py"
+      change_type: "created"
+      description: "Declared backend package."
+    - file: "backend/app/__init__.py"
+      change_type: "created"
+      description: "Declared FastAPI application package."
+    - file: "backend/app/main.py"
+      change_type: "created"
+      description: "Implemented local-only CORS and read-only synthetic health API."
+    - file: "backend/tests/test_main.py"
+      change_type: "created"
+      description: "Added API health, method, CORS, and OpenAPI boundary tests."
+    - file: ".github/modernize/rearchitecture/artifacts/t4-backend.md"
+      change_type: "created"
+      description: "Task report and artifact index."
+    - file: ".github/modernize/rearchitecture/artifacts/t4-backend-api-contract.md"
+      change_type: "created"
+      description: "Frontend/backend boundary contract."
+    - file: ".github/modernize/rearchitecture/artifacts/t4-backend-provider-database-decisions.md"
+      change_type: "created"
+      description: "Deferred database, identity, and production-enablement decisions."
+    - file: ".github/modernize/rearchitecture/artifacts/t4-backend-batch-report.yaml"
+      change_type: "created"
+      description: "Structured task result and test evidence."
+    - file: ".github/modernize/rearchitecture/artifacts/checkpoints/tasks-to-impl.yaml"
+      change_type: "created"
+      description: "Implementation traceability checkpoint for t4."
+    - file: ".github/modernize/rearchitecture/team/backend/log.md"
+      change_type: "created"
+      description: "Backend task session log."
+    - file: ".github/modernize/rearchitecture/learnings/backend/api-boundary-contract.md"
+      change_type: "created"
+      description: "Reusable API boundary and privacy convention."
+upstream_artifacts_consumed:
+  t4:
+    - artifact: ".github/modernize/rearchitecture/plan.md"
+      used_for: "Approved stack, demo boundary, and deferred provider/database requirements."
+    - artifact: ".github/modernize/rearchitecture/.metadata/tasks.json"
+      used_for: "002-application-foundation requirements and acceptance criteria."
+    - artifact: ".github/modernize/rearchitecture/clarification-answers.md"
+      used_for: "Confirmed FastAPI/Python stack and submitted backend answers."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t1-tester.md"
+      used_for: "Verified no existing backend, API, database, or authentication."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t2-devops.md"
+      used_for: "Used the existing Python 3.11.9 workspace .venv."
+    - artifact: ".github/modernize/rearchitecture/board.md"
+      used_for: "Read task order/status; kept the board read-only."
+    - artifact: ".github/modernize/rearchitecture/learnings/devops/runtime-toolchain-selection.md"
+      used_for: "Installed from the new manifest without recreating .venv."
+evidence_mapping:
+  t4:
+    - upstream: "tasks.json#002-application-foundation.requirements"
+      output: "backend/app/main.py"
+      evidence: "API route, response schema, CORS, and OpenAPI tests pass."
+    - upstream: "plan.md#Delivery Boundaries and Acceptance"
+      output: "t4-backend-api-contract.md#Boundary and Error Behavior"
+      evidence: "Only the read-only health route is exposed; no report payload, data store, auth, or AI integration."
+    - upstream: "t1-tester.md#Existing Test Assets and Environment"
+      output: "backend/"
+      evidence: "New isolated backend foundation; existing root prototype files preserved."
+    - upstream: "t2-devops.md#Target Environment Preparation"
+      output: "backend/requirements-dev.txt and existing .venv"
+      evidence: "Pinned packages installed and tested with the prepared Python 3.11.9 interpreter."
+traceability:
+  - requirement: "tasks.json#002-application-foundation.requirements"
+    plan_item: "Foundation: FastAPI backend foundation, API boundaries, deferred provider/database decisions"
+    task: "t4"
+    files:
+      - "backend/app/main.py"
+      - "backend/tests/test_main.py"
+      - ".github/modernize/rearchitecture/artifacts/t4-backend-api-contract.md"
+      - ".github/modernize/rearchitecture/artifacts/t4-backend-provider-database-decisions.md"
+    status: "completed"
+protocol_violation: false
+errors: []
+warnings:
+  - severity: INFO
+    message: "No architect design artifact or project context/decisions files were present; implementation is limited to the approved foundation and does not infer feature-specific API routes."
+  - severity: INFO
+    message: "The workspace has no Git repository. No Git initialization, staging, commit, or push was performed."
+test_results:
+  t4:
+    command: "& '.\\.venv\\Scripts\\python.exe' -m pytest backend\\tests -q"
+    passed: 4
+    failed: 0
+    skipped: 0
+    failures: []
+    additional_checks:
+      - command: "& '.\\.venv\\Scripts\\python.exe' -m compileall -q backend"
+        result: "PASS"
+      - command: "& '.\\.venv\\Scripts\\python.exe' -m pip check"
+        result: "PASS"
+endpoint_probes:
+  - method: "GET"
+    path: "/api/v1/health"
+    status: 200
+    result: "PASS"
+  - method: "GET"
+    path: "/openapi.json"
+    status: 200
+    result: "PASS; only /api/v1/health application path is declared"

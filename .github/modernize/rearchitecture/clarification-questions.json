@@ -1,0 +1,637 @@
+{
+  "schema": "clarification-questions/v1",
+  "generated_at": "2026-10-29T11:15:13Z",
+  "user_input": "now like other app compare this and also make our project at that level in every aspect like frontend backend dashboard ai integration everything",
+  "title": "CareLens Full-Stack Product Build",
+  "assessment_snapshot": {
+    "intro": "The workspace currently contains a small, static CareLens web prototype with a report-picker interface and patient/clinician navigation:",
+    "bullets": [
+      "Frontend is plain HTML, CSS, and JavaScript; the current UI lives in index.html and styles.css.",
+      "No backend, database, authentication, report processing, AI integration, clinician dashboard workflows, or automated tests are present.",
+      "The earlier product direction was responsive web, for patients and clinicians, with plain-language report understanding and clinician-preparation support.",
+      "The requested comparison app is not named or linked, so its features and visual design cannot yet be assessed."
+    ]
+  },
+  "proposed_outcome": "Evolve the existing prototype into a responsive patient-and-clinician product with a polished frontend, secure backend and dashboards, and carefully bounded AI-assisted report explanations. Compare specific workflows and visual patterns against the reference app the user identifies. Before real patient data is handled, require appropriate privacy/security architecture and clinical validation; keep the AI informational, evidence-grounded, transparent about uncertainty, and defer diagnosis and treatment decisions to qualified clinicians.",
+  "scope": [
+    "frontend",
+    "backend",
+    "generic"
+  ],
+  "status": "answered",
+  "questions": [
+    {
+      "id": "F1",
+      "kit": "frontend",
+      "field": "target.framework",
+      "title": "Frontend framework",
+      "question": "Which frontend framework and version should the upgraded web app use?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "Next.js 15 (React 19, TypeScript)",
+      "default": null,
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "Next.js 15 (React 19, TypeScript)",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Next.js 15 (React 19, TypeScript)",
+          "label": "Next.js 15 (React 19, TypeScript)"
+        },
+        {
+          "value": "React 19 + Vite 6 (TypeScript)",
+          "label": "React 19 + Vite 6 (TypeScript)"
+        },
+        {
+          "value": "Vue 3 + Nuxt 3 (TypeScript)",
+          "label": "Vue 3 + Nuxt 3 (TypeScript)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F2",
+      "kit": "frontend",
+      "field": "target.component_library",
+      "title": "UI component library",
+      "question": "Which component library or design approach should the frontend use?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "shadcn/ui + Tailwind CSS",
+      "default": null,
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "shadcn/ui + Tailwind CSS",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "shadcn/ui + Tailwind CSS",
+          "label": "shadcn/ui + Tailwind CSS (React)"
+        },
+        {
+          "value": "Material UI v7",
+          "label": "Material UI v7 (React)"
+        },
+        {
+          "value": "Ant Design v6",
+          "label": "Ant Design v6 (React)"
+        },
+        {
+          "value": "Vuetify 3",
+          "label": "Vuetify 3 (Vue)"
+        },
+        {
+          "value": "PrimeVue",
+          "label": "PrimeVue (Vue)"
+        },
+        {
+          "value": "Accessible custom components using the existing CSS style",
+          "label": "Accessible custom components using the existing CareLens style"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F3",
+      "kit": "frontend",
+      "field": "visual.screenshots",
+      "title": "Reference app and screenshots",
+      "question": "Share the name or URL of the app you want CareLens compared with, plus screenshots, a screen recording, or a staging link for the screens and workflows you want matched. If you meant a well-known product, name it and say which parts to compare (for example report upload, AI explanation, patient dashboard, clinician dashboard, or visual design).",
+      "importance": "required",
+      "impact": 5,
+      "recommended": null,
+      "default": null,
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "https://www.healthnivaran.in/",
+        "source": "user"
+      },
+      "depends_on": null,
+      "type": "text"
+    },
+    {
+      "id": "F4",
+      "kit": "frontend",
+      "field": "visual.design_system",
+      "title": "Design system",
+      "question": "Should we use the existing CareLens visual style as the starting design system, or do you have brand guidelines, design tokens, or a reference design to follow?",
+      "importance": "required",
+      "impact": 4,
+      "recommended": "Use existing CSS custom properties and styles.css as the starting design tokens",
+      "default": "match existing pixel-by-pixel using extracted CSS custom properties",
+      "prefilled": true,
+      "prefilled_value": "Use existing CSS custom properties and styles.css as the starting design tokens",
+      "answer": {
+        "value": "Use existing CSS custom properties and styles.css as the starting design tokens",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Use existing CSS custom properties and styles.css as the starting design tokens",
+          "label": "Use existing CareLens CSS tokens and style as the starting point"
+        },
+        {
+          "value": "Follow a design system or brand guide I will provide",
+          "label": "I will provide a design system or brand guide"
+        },
+        {
+          "value": "Create a new design system based on the reference app",
+          "label": "Create a new design system based on the reference app"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F5",
+      "kit": "frontend",
+      "field": "compliance.accessibility",
+      "title": "Accessibility target",
+      "question": "Which accessibility standard should the UI target?",
+      "importance": "recommended",
+      "impact": 4,
+      "recommended": "WCAG 2.2 AA",
+      "default": "WCAG 2.1 AA",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "WCAG 2.2 AA",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "WCAG 2.2 AA",
+          "label": "WCAG 2.2 AA"
+        },
+        {
+          "value": "WCAG 2.1 AA",
+          "label": "WCAG 2.1 AA"
+        },
+        {
+          "value": "Section 508",
+          "label": "Section 508"
+        },
+        {
+          "value": "No specific standard",
+          "label": "No specific standard"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F6",
+      "kit": "frontend",
+      "field": "compatibility.browsers",
+      "title": "Browser support",
+      "question": "Which browsers and versions should the web app support?",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": "Modern evergreen browsers, latest 2 versions",
+      "default": "modern evergreen (Chrome, Firefox, Safari, Edge — latest 2 major versions)",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "Modern evergreen browsers, latest 2 versions",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Modern evergreen browsers, latest 2 versions",
+          "label": "Chrome, Firefox, Safari, and Edge — latest 2 versions"
+        },
+        {
+          "value": "Latest versions only",
+          "label": "Latest versions only"
+        },
+        {
+          "value": "Specific browser list",
+          "label": "I will provide a specific browser list"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F7",
+      "kit": "frontend",
+      "field": "responsive.breakpoints",
+      "title": "Responsive behavior",
+      "question": "Confirm the responsive strategy for mobile phones, tablets, and desktop screens.",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": "Responsive web for mobile, tablet, and desktop",
+      "default": "mobile-first using existing breakpoints detected from codebase",
+      "prefilled": true,
+      "prefilled_value": "Responsive web for mobile, tablet, and desktop",
+      "answer": {
+        "value": "Responsive web for mobile, tablet, and desktop",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Responsive web for mobile, tablet, and desktop",
+          "label": "Responsive layouts across phones, tablets, and desktops"
+        },
+        {
+          "value": "Mobile-first with desktop enhancements",
+          "label": "Mobile-first, then enhance for larger screens"
+        },
+        {
+          "value": "Desktop-first with mobile adaptations",
+          "label": "Desktop-first, with mobile adaptations"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F8",
+      "kit": "frontend",
+      "field": "i18n.locales",
+      "title": "Languages and locales",
+      "question": "Which languages should the first version support?",
+      "importance": "optional",
+      "impact": 2,
+      "recommended": null,
+      "default": "preserve current locales; keep existing i18n library if present",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": [
+          "preserve current locales; keep existing i18n library if present"
+        ],
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "English",
+          "label": "English"
+        },
+        {
+          "value": "Hindi",
+          "label": "Hindi"
+        },
+        {
+          "value": "Other languages",
+          "label": "Other languages (specify)"
+        }
+      ],
+      "allow_other": true,
+      "type": "multi_select"
+    },
+    {
+      "id": "F9",
+      "kit": "frontend",
+      "field": "state_mgmt.preference",
+      "title": "Frontend state management",
+      "question": "Do you have a preference for handling UI and server data state?",
+      "importance": "optional",
+      "impact": 2,
+      "recommended": "Minimal component state plus a server-state library when needed",
+      "default": "preserve existing pattern if identifiable; otherwise recommend minimal (component state + server-state library)",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "preserve existing pattern if identifiable; otherwise recommend minimal (component state + server-state library)",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Minimal component state plus a server-state library when needed",
+          "label": "Keep state minimal; use a server-state library where needed"
+        },
+        {
+          "value": "Zustand",
+          "label": "Zustand"
+        },
+        {
+          "value": "Redux Toolkit",
+          "label": "Redux Toolkit"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F10",
+      "kit": "frontend",
+      "field": "routing.preference",
+      "title": "Routing approach",
+      "question": "Do you prefer a specific routing library or strategy?",
+      "importance": "optional",
+      "impact": 2,
+      "recommended": "Use the chosen framework's standard router",
+      "default": "use the de-facto router for the chosen target framework",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "use the de-facto router for the chosen target framework",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Use the chosen framework's standard router",
+          "label": "Use the chosen framework's standard router"
+        },
+        {
+          "value": "React Router",
+          "label": "React Router (React)"
+        },
+        {
+          "value": "TanStack Router",
+          "label": "TanStack Router (React)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B1",
+      "kit": "backend",
+      "field": "target.framework",
+      "title": "Backend framework",
+      "question": "Which backend framework and runtime should power APIs, authentication, report workflows, and AI integration?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "FastAPI (Python)",
+      "default": null,
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "FastAPI (Python)",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Next.js 15 API routes (TypeScript / Node.js)",
+          "label": "Next.js API routes (TypeScript / Node.js)"
+        },
+        {
+          "value": "NestJS 10 (TypeScript / Node.js)",
+          "label": "NestJS (TypeScript / Node.js)"
+        },
+        {
+          "value": "FastAPI (Python)",
+          "label": "FastAPI (Python)"
+        },
+        {
+          "value": "ASP.NET Core 8 (C#)",
+          "label": "ASP.NET Core (C#)"
+        },
+        {
+          "value": "Spring Boot 3 (Java)",
+          "label": "Spring Boot (Java)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B2",
+      "kit": "backend",
+      "field": "api.contract_preservation",
+      "title": "API compatibility",
+      "question": "There is no backend API in the current prototype. What compatibility policy should apply to the new API?",
+      "importance": "required",
+      "impact": 4,
+      "recommended": "can break",
+      "default": "must preserve",
+      "prefilled": true,
+      "prefilled_value": "can break",
+      "answer": {
+        "value": "can break",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "must preserve",
+          "label": "Must preserve existing contracts"
+        },
+        {
+          "value": "can break with versioning",
+          "label": "Allow changes only with API versioning"
+        },
+        {
+          "value": "can break",
+          "label": "No existing API clients; design new contracts"
+        },
+        {
+          "value": "partial: specify contracts",
+          "label": "Preserve specific contracts (describe them)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B3",
+      "kit": "backend",
+      "field": "data.migration_strategy",
+      "title": "Data and database strategy",
+      "question": "The prototype has no database or saved report data. How should the new app handle database design and any migration?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "TBD / assess in research phase",
+      "default": "TBD / assess in research phase",
+      "prefilled": true,
+      "prefilled_value": "no migration",
+      "answer": {
+        "value": "TBD / assess in research phase",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "no migration",
+          "label": "No migration; there is no existing database or data"
+        },
+        {
+          "value": "new schema",
+          "label": "Design a new schema for the product"
+        },
+        {
+          "value": "TBD / assess in research phase",
+          "label": "Decide after architecture, privacy, and security assessment"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B4",
+      "kit": "backend",
+      "field": "auth.framework",
+      "title": "Authentication and roles",
+      "question": "Do you have a preferred identity provider or authentication approach for patients, clinicians, and administrators?",
+      "importance": "recommended",
+      "impact": 4,
+      "recommended": "TBD / recommend after assessment",
+      "default": "preserve existing auth mechanism; detect from codebase",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "preserve existing auth mechanism; detect from codebase",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Managed identity provider (select after security review)",
+          "label": "Managed identity provider, selected after security review"
+        },
+        {
+          "value": "Microsoft Entra ID",
+          "label": "Microsoft Entra ID"
+        },
+        {
+          "value": "Auth0",
+          "label": "Auth0"
+        },
+        {
+          "value": "Amazon Cognito",
+          "label": "Amazon Cognito"
+        },
+        {
+          "value": "Keycloak",
+          "label": "Keycloak"
+        },
+        {
+          "value": "TBD / recommend after assessment",
+          "label": "Recommend after privacy and security assessment"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B5",
+      "kit": "backend",
+      "field": "nfr.sla",
+      "title": "Performance and availability",
+      "question": "What service targets should the backend meet (for example availability, response time, and expected users)? If this is not known yet, say so.",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": null,
+      "default": "match current production baseline; no regression",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "match current production baseline; no regression",
+        "source": "default"
+      },
+      "depends_on": null,
+      "type": "text"
+    },
+    {
+      "id": "G1",
+      "kit": "generic",
+      "field": "success.definition",
+      "title": "Definition of done",
+      "question": "What measurable outcome would make this build successful? Include the expected depth of feature parity with your comparison app and whether this is a demo, MVP, or production launch.",
+      "importance": "required",
+      "impact": 5,
+      "recommended": null,
+      "default": "feature parity with the current system; all existing user-facing behaviors preserved",
+      "prefilled": true,
+      "prefilled_value": "Deliver a responsive patient and clinician product with secure accounts and role-based dashboards, a privacy-reviewed backend, and carefully bounded AI-assisted report explanations; compare the agreed workflows with the reference app. Before real patient data is handled, require appropriate privacy/security controls and clinical validation. Define passing accessibility, security, and end-to-end checks for the agreed release scope.",
+      "answer": {
+        "value": "Deliver a responsive patient and clinician product with secure accounts and role-based dashboards, a privacy-reviewed backend, and carefully bounded AI-assisted report explanations; compare the agreed workflows with the reference app. Before real patient data is handled, require appropriate privacy/security controls and clinical validation. Define passing accessibility, security, and end-to-end checks for the agreed release scope.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "type": "text"
+    },
+    {
+      "id": "G2",
+      "kit": "generic",
+      "field": "out_of_scope",
+      "title": "Scope boundaries",
+      "question": "What must be excluded from this build? In particular, should production handling of real reports or patient-facing AI interpretation wait until privacy, security, and clinical validation are complete?",
+      "importance": "recommended",
+      "impact": 4,
+      "recommended": null,
+      "default": "no explicit exclusions; agent will infer from project structure",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "no explicit exclusions; agent will infer from project structure",
+        "source": "default"
+      },
+      "depends_on": null,
+      "type": "text"
+    },
+    {
+      "id": "G3",
+      "kit": "generic",
+      "field": "existing_tests.posture",
+      "title": "Test expectations",
+      "question": "The current prototype has no automated test suite. What test policy should apply as the project grows?",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": "must pass",
+      "default": "must pass",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "must pass",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "must pass",
+          "label": "All existing and new tests must pass"
+        },
+        {
+          "value": "can rewrite",
+          "label": "Tests can be replaced with equivalent coverage"
+        },
+        {
+          "value": "ignore",
+          "label": "Start a new test suite from scratch"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "G5",
+      "kit": "generic",
+      "field": "constraints.additional",
+      "title": "Additional constraints",
+      "question": "Please name or link the app you mean by 'other app' and describe what to compare (features, screens, user workflows, dashboard, AI behavior, visual design). Add any other requirements, privacy/regulatory constraints, dependencies, or operational limits here.",
+      "importance": "optional",
+      "impact": 5,
+      "recommended": null,
+      "default": "None beyond the decisions listed in this specification.",
+      "prefilled": true,
+      "prefilled_value": "None beyond the decisions listed in this specification.",
+      "answer": {
+        "value": "None beyond the decisions listed in this specification.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "type": "text"
+    }
+  ]
+}

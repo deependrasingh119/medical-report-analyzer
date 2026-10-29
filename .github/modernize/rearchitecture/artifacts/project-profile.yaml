@@ -1,0 +1,47 @@
+project:
+  scope_path: "."
+  loc: 0
+  languages: [JavaScript, HTML, CSS, Python, TypeScript]
+  git: false
+  structure:
+    ".": "Static CareLens prototype: README.md, app.js, index.html, styles.css; target is Next.js 15/React 19/TypeScript plus FastAPI/Python."
+  notes: "Repository details are based only on the workspace shape and approved plan. LOC was not measured by the coordinator. Strict synthetic-data demo only; no real PHI, production auth/database/cloud/live AI, diagnosis, triage, or treatment recommendations."
+
+assessment:
+  change_type: rewrite
+  rationale: |
+    The approved plan replaces a static HTML/CSS/JavaScript prototype with a
+    Next.js/React/TypeScript frontend and a FastAPI/Python backend. The target
+    architecture and safe demo scope are specified in the approved plan and
+    clarification answers.
+  transformations:
+    - fromStack: "Static HTML/CSS/JavaScript prototype"
+      fromStackVersion: "Not specified"
+      toStack: "Next.js, React, TypeScript, shadcn/ui, Tailwind CSS"
+      toStackVersion: "Next.js 15, React 19"
+    - fromStack: "No backend"
+      fromStackVersion: "N/A"
+      toStack: "FastAPI/Python"
+      toStackVersion: "Not specified"
+  grouping_needed: false
+  deep_planning: undecided
+
+progress_sync:
+  run_id: "74c4ed55-0d53-4815-894e-e3a10fae5961"
+  grouping_mode: none
+  execution_mode: all-at-once
+  plan_start_time: "2026-10-29T11:28:19Z"
+  plan_completed_time: "2026-10-29T11:30:33Z"
+  execution_start_time: "2026-10-29T11:30:33Z"
+  execution_completed_time: null
+  validation_start_time: null
+  validation_completed_time: null
+  total_phases: 5
+  completed_phases: 1
+  total_modules: 1
+  completed_modules: 0
+  total_tasks: 14
+  completed_tasks: 2
+  total_commits: 0
+  build_verified: false
+  test_verified: false

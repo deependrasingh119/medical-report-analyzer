@@ -1,0 +1,132 @@
+batch_id: "t8"
+completed_tasks:
+  - "t8"
+blocked_tasks: []
+required_endpoints:
+  - method: GET
+    path: "/api/v1/demo/clinician/cases"
+    source: ".github/modernize/rearchitecture/artifacts/t7-backend-api-contract.md#Endpoints"
+    status: "implemented"
+  - method: GET
+    path: "/api/v1/demo/clinician/cases/{case_id}"
+    source: ".github/modernize/rearchitecture/artifacts/t7-backend-api-contract.md#Endpoints"
+    status: "implemented"
+files_changed:
+  t8:
+    - file: "components/clinician-dashboard.tsx"
+      change_type: "created"
+      description: "Added exact-header bodyless list/detail GETs, fixed-fixture response validation, review UI, and safe loading/error/role-denied states."
+    - file: "app/clinicians/page.tsx"
+      change_type: "modified"
+      description: "Replaced the disconnected clinician placeholder with the dashboard inside the existing CareLens app shell."
+    - file: "app/globals.css"
+      change_type: "modified"
+      description: "Added responsive clinician list/detail, selected state, readable safety/error notices, and controls using existing design tokens."
+    - file: "tests/clinician-dashboard.test.tsx"
+      change_type: "created"
+      description: "Covered list/detail contract, role header, no request body, case selection, safe 401/403 handling, and absence of text/file inputs."
+    - file: ".github/modernize/rearchitecture/artifacts/t8-frontend.md"
+      change_type: "created"
+      description: "Added task index, upstream traceability, evidence mapping, test results, and remaining gates."
+    - file: ".github/modernize/rearchitecture/artifacts/t8-frontend-batch-report.yaml"
+      change_type: "created"
+      description: "Recorded structured task, endpoint, file, upstream, and verification evidence."
+    - file: ".github/modernize/rearchitecture/artifacts/checkpoints/t8-tasks-to-impl.yaml"
+      change_type: "created"
+      description: "Added task-specific implementation traceability checkpoint."
+    - file: ".github/modernize/rearchitecture/team/frontend/log.md"
+      change_type: "modified"
+      description: "Appended t8 implementation discoveries and consumed learnings."
+    - file: ".github/modernize/rearchitecture/learnings/frontend/clinician-case-review-demo-contract.md"
+      change_type: "created"
+      description: "Recorded the reusable synthetic list/detail API and demo-role UI boundary."
+upstream_artifacts_consumed:
+  t8:
+    - artifact: ".github/modernize/rearchitecture/artifacts/t7-backend.md"
+      used_for: "Backend scope, read-only static fixtures, and role boundary summary."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t7-backend-api-contract.md#Demo Role Boundary, #Endpoints, #Response Shape"
+      used_for: "Exact GET paths, response shapes, `X-Demo-Role: clinician`, and 401/403 behavior."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t7-backend-batch-report.yaml#endpoint_probes"
+      used_for: "Existing backend contract verification and expected authorization results."
+    - artifact: ".github/modernize/rearchitecture/artifacts/t6-frontend.md and t6-frontend-batch-report.yaml"
+      used_for: "Patient workflow safety boundary, existing frontend structure, and test/build conventions."
+    - artifact: ".github/modernize/rearchitecture/.metadata/tasks.json#005-clinician-demo-workflow.requirements"
+      used_for: "Approved clinician list/detail behavior and synthetic-only scope."
+    - artifact: ".github/modernize/rearchitecture/plan.md#Delivery Boundaries and Acceptance"
+      used_for: "No real data, production identity, or clinical decision behavior."
+    - artifact: ".github/modernize/rearchitecture/clarification-answers.md#F5/F7"
+      used_for: "Accessibility target and responsive device scope."
+    - artifact: ".github/modernize/rearchitecture/learnings/frontend/safe-synthetic-preparation-demo.md, frontend/vitest-next-js-config.md, backend/api-boundary-contract.md, backend/clinician-demo-role-boundary.md"
+      used_for: "Synthetic-only UI, test setup, versioned API conventions, and non-production role handling."
+    - artifact: "components/patient-preparation.tsx, tests/patient-preparation.test.tsx, components/app-shell.tsx, app/globals.css"
+      used_for: "API base URL, React component state, app-shell conventions, styles, and focused test patterns."
+evidence_mapping:
+  t8:
+    - upstream: "tasks.json#005-clinician-demo-workflow.requirements"
+      output: "components/clinician-dashboard.tsx and tests/clinician-dashboard.test.tsx"
+      evidence: "Read-only synthetic list/detail, fixed discussion questions, selected case review, and no free-text or file controls."
+    - upstream: "t7-backend-api-contract.md#Endpoints and #Response Shape"
+      output: "components/clinician-dashboard.tsx and tests/clinician-dashboard.test.tsx"
+      evidence: "Exact list/detail URLs, response validation, clinician role header, bodyless GET assertions, and successful live 200 probes."
+    - upstream: "t7-backend-api-contract.md#Demo Role Boundary"
+      output: "components/clinician-dashboard.tsx and tests/clinician-dashboard.test.tsx"
+      evidence: "401/403 display safe role-denied UI; backend response bodies are not parsed or reflected; copy states demo header is not production authentication."
+    - upstream: "plan.md#Delivery Boundaries and Acceptance and clarification-answers.md#F5/F7"
+      output: "app/globals.css and clinician dashboard UI"
+      evidence: "Synthetic/clinician-review notices, no clinical recommendations, responsive single-column breakpoint, semantic landmarks/lists/buttons, and existing focus styling."
+traceability:
+  - requirement: "005-clinician-demo-workflow"
+    plan_item: "Safe Demo Implementation: clinician dashboard and case review"
+    task: "t8"
+    files:
+      - "components/clinician-dashboard.tsx"
+      - "app/clinicians/page.tsx"
+      - "app/globals.css"
+      - "tests/clinician-dashboard.test.tsx"
+    status: "completed"
+protocol_violation: false
+errors: []
+warnings:
+  - severity: "WARNING"
+    message: "Browser-rendered responsive and automated accessibility checks remain for downstream validation; t6 records the unavailable Playwright Chromium executable."
+  - severity: "INFO"
+    message: "Next.js emitted its existing multiple-lockfile warning and selected C:\\Users\\snoha\\package-lock.json as the tracing root; no external file was modified."
+  - severity: "INFO"
+    message: "An initial focused test run exposed mismatched test queries for repeated UI copy; expectations were corrected and the focused and full final suites passed."
+  - severity: "INFO"
+    message: "An initial parallel typecheck/build run overlapped Next.js .next type generation and caught a nullable state closure; the request ID narrowing was corrected and final sequential build/typecheck passed."
+test_results:
+  t8:
+    command: "npm test"
+    passed: 10
+    failed: 0
+    skipped: 0
+    failures: []
+additional_checks:
+  - command: "npm test -- tests/clinician-dashboard.test.tsx"
+    result: "PASS; 4 tests."
+  - command: "npm run lint"
+    result: "PASS; exit code 0."
+  - command: "npm run typecheck"
+    result: "PASS; exit code 0 after the completed production build."
+  - command: "npm run build"
+    result: "PASS; exit code 0; Next.js 15.5.28 generated the /clinicians route."
+  - command: "Local curl.exe GET probes for clinician list/detail, missing role, and patient role"
+    result: "PASS; 200, 200, 401, and 403 respectively."
+endpoint_probes:
+  - method: "GET"
+    path: "/api/v1/demo/clinician/cases"
+    status: 200
+    result: "PASS; X-Demo-Role: clinician returns fixed synthetic cases."
+  - method: "GET"
+    path: "/api/v1/demo/clinician/cases/synthetic-case-001"
+    status: 200
+    result: "PASS; X-Demo-Role: clinician returns the matching fixed synthetic detail."
+  - method: "GET"
+    path: "/api/v1/demo/clinician/cases"
+    status: 401
+    result: "PASS; missing demo role is rejected."
+  - method: "GET"
+    path: "/api/v1/demo/clinician/cases"
+    status: 403
+    result: "PASS; patient demo role is forbidden."

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f8f6">
+    <meta name="description" content="A thoughtful space to understand medical reports and prepare for conversations with your care team.">
+    <title>CareLens — Make sense of your report</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#" aria-label="CareLens home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M16 5.5v21M5.5 16h21" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+              <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </span>
+          <span>care<span class="brand-light">lens</span></span>
+        </a>
+
+        <p class="nav-label">WORKSPACE</p>
+        <nav class="nav-links">
+          <button class="nav-link active" type="button" data-view="overview" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">⌂</span> Overview
+          </button>
+          <button class="nav-link" type="button" data-view="reports">
+            <span class="nav-icon" aria-hidden="true">▤</span> My reports
+          </button>
+          <button class="nav-link" type="button" data-view="clinicians">
+            <span class="nav-icon" aria-hidden="true">♡</span> For clinicians
+          </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="privacy-card">
+            <span class="privacy-icon" aria-hidden="true">✳</span>
+            <strong>Your health, your pace</strong>
+            <p>This prototype does not upload or save your report.</p>
+          </div>
+          <button class="profile-button" type="button" aria-label="Profile menu">
+            <span class="avatar">S</span>
+            <span class="profile-copy"><strong>Sam</strong><small>Personal space</small></span>
+            <span class="profile-more" aria-hidden="true">···</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Workspace</span><span aria-hidden="true">/</span><strong id="breadcrumb-current">Overview</strong></div>
+          <div class="topbar-actions">
+            <span class="prototype-pill"><span aria-hidden="true"></span> Prototype</span>
+            <button class="icon-button" type="button" aria-label="Help and information">?</button>
+          </div>
+        </header>
+
+        <div class="content-wrap">
+          <section class="view-panel" id="overview-view" aria-labelledby="welcome-title">
+            <div class="welcome-row">
+              <div>
+                <p class="eyebrow">YOUR HEALTH, MADE CLEARER</p>
+                <h1 id="welcome-title">Understand your report.<br><span>Prepare for what’s next.</span></h1>
+                <p class="welcome-copy">A little more clarity can help you have a more confident conversation with your care team.</p>
+              </div>
+              <div class="welcome-art" aria-hidden="true">
+                <div class="art-sun"></div>
+                <div class="art-paper"><i></i><i></i><i></i><b></b></div>
+                <div class="art-sparkle">✳</div>
+              </div>
+            </div>
+
+            <div class="safety-banner" role="note">
+              <span class="safety-icon" aria-hidden="true">i</span>
+              <p><strong>A helpful companion, not a diagnosis.</strong> CareLens is designed to explain terms and help you prepare questions. Your clinician is the right person to interpret results and guide care.</p>
+            </div>
+
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">GET STARTED</p>
+                <h2>Bring a report into focus</h2>
+              </div>
+              <span class="step-count">01 <span>—</span> 02</span>
+            </div>
+
+            <section class="upload-card" aria-labelledby="upload-title">
+              <div class="upload-heading">
+                <div class="upload-symbol" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14.5v4A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5v-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 id="upload-title">Start with your report</h3>
+                  <p>Choose a report to get ready for a guided review.</p>
+                </div>
+              </div>
+              <div class="dropzone" id="dropzone">
+                <div class="file-icon" aria-hidden="true">PDF</div>
+                <div class="dropzone-copy">
+                  <strong>Drop a file here, or <span>browse</span></strong>
+                  <small>PDF, JPG or PNG · up to 20 MB</small>
+                </div>
+                <button class="button button-outline" id="browse-button" type="button">Choose file</button>
+                <input id="report-file" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" hidden>
+              </div>
+              <div class="selected-file" id="selected-file" hidden>
+                <span class="selected-file-icon" aria-hidden="true">▤</span>
+                <span class="selected-file-name" id="selected-file-name"></span>
+                <button class="remove-file" id="remove-file" type="button" aria-label="Remove selected file">×</button>
+              </div>
+              <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+              <div class="upload-footer">
+                <span class="local-note"><span aria-hidden="true">◉</span> Not uploaded in this prototype</span>
+                <button class="button button-primary" id="review-button" type="button" disabled>
+                  Prepare to review <span aria-hidden="true">→</span>
+                </button>
+              </div>
+              <div class="prototype-notice" id="prototype-notice" role="status" aria-live="polite" hidden>
+                <strong>Report analysis is not connected yet.</strong>
+                <span>Your file has not been uploaded, opened, or analyzed. Connect a secure, clinician-reviewed service before enabling report explanations.</span>
+              </div>
+            </section>
+
+            <section class="next-steps" aria-labelledby="steps-title">
+              <div class="steps-intro">
+                <p class="eyebrow">A GENTLER WAY TO GET READY</p>
+                <h2 id="steps-title">Small steps, more clarity</h2>
+              </div>
+              <div class="step-card">
+                <span class="step-number">1</span>
+                <div><strong>Understand the language</strong><p>Get familiar with medical terms, one at a time.</p></div>
+                <span class="step-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div class="step-card">
+                <span class="step-number">2</span>
+                <div><strong>Make a question list</strong><p>Bring the things you’re wondering about to your visit.</p></div>
+                <span class="step-arrow" aria-hidden="true">↗</span>
+              </div>
+            </section>
+
+            <footer class="page-footer">
+              <span>CareLens is an informational tool, not a substitute for professional medical advice.</span>
+              <a href="#urgent-care">When to seek urgent help</a>
+            </footer>
+          </section>
+
+          <section class="view-panel secondary-view" id="reports-view" aria-labelledby="reports-title" hidden>
+            <p class="eyebrow">YOUR WORKSPACE</p>
+            <h1 id="reports-title">My reports</h1>
+            <div class="empty-state">
+              <div class="empty-state-icon" aria-hidden="true">▤</div>
+              <h2>No reports here yet</h2>
+              <p>Reports aren’t saved in this prototype. When secure storage is available, you’ll be able to keep your reports together here.</p>
+              <button class="button button-primary" type="button" data-go="overview">Back to overview <span aria-hidden="true">→</span></button>
+            </div>
+          </section>
+
+          <section class="view-panel secondary-view" id="clinicians-view" aria-labelledby="clinicians-title" hidden>
+            <p class="eyebrow">CARE TEAM WORKSPACE</p>
+            <h1 id="clinicians-title">For clinicians</h1>
+            <div class="clinician-card">
+              <span class="clinician-mark" aria-hidden="true">＋</span>
+              <div>
+                <h2>Support clearer conversations</h2>
+                <p>This space is intended to help care teams review patient questions alongside their reports. No patient information is collected or shared in this prototype.</p>
+                <span class="coming-soon">Clinician tools are not connected yet</span>
+              </div>
+            </div>
+            <div class="clinician-principles">
+              <div><span>01</span><strong>Patient-led questions</strong><p>Help people feel prepared to talk through what matters to them.</p></div>
+              <div><span>02</span><strong>Clinician-guided care</strong><p>Keep interpretation and care decisions with qualified professionals.</p></div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <div class="sr-only" id="urgent-care">If you may be experiencing a medical emergency, contact your local emergency service.</div>
+  </body>
+</html>

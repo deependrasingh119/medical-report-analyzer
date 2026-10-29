@@ -1,0 +1,190 @@
+metadata:
+  generated: "2026-10-29"
+  source_tasks: ".github/modernize/rearchitecture/.metadata/tasks.json"
+  last_updated: "2026-10-29"
+upstream_artifacts_consumed:
+  - artifact: ".github/modernize/rearchitecture/plan.md"
+    used_for: "Foundation stack and explicit no-PHI/provider/database boundaries."
+  - artifact: ".github/modernize/rearchitecture/.metadata/tasks.json"
+    used_for: "Approved task 002 acceptance criteria."
+  - artifact: ".github/modernize/rearchitecture/artifacts/t1-tester.md"
+    used_for: "Confirmed absence of existing API, authentication, and database."
+  - artifact: ".github/modernize/rearchitecture/artifacts/t2-devops.md"
+    used_for: "Used the existing Python 3.11.9 workspace environment."
+  - artifact: ".github/modernize/rearchitecture/artifacts/t4-backend-api-contract.md"
+    used_for: "Preserved the versioned API boundary and no-PHI behavior."
+  - artifact: ".github/modernize/rearchitecture/artifacts/t5-backend-api-contract.md"
+    used_for: "Preserved the existing explanation endpoint and synthetic/no-body contract."
+  - artifact: ".github/modernize/rearchitecture/clarification-answers.md"
+    used_for: "Kept identity/database and real-data enablement deferred."
+evidence_mapping:
+  - upstream: "tasks.json#002-application-foundation.requirements"
+    output: "backend/app/main.py and t4-backend-api-contract.md"
+    evidence: "Foundation health route, local CORS contract, OpenAPI inventory, and passing API tests."
+  - upstream: "plan.md#Delivery Boundaries and Acceptance"
+    output: "t4-backend-provider-database-decisions.md"
+    evidence: "Production identity and persistence remain deferred and gated."
+  - upstream: "tasks.json#003-safe-demo-backend.requirements"
+    output: "backend/app/explanations.py and t5-backend-api-contract.md"
+    evidence: "Prior verified t5 artifact records fixed synthetic explanation response and bodyless GET behavior."
+  - upstream: "tasks.json#005-clinician-demo-workflow.requirements"
+    output: "backend/app/clinician_cases.py and t7-backend-api-contract.md"
+    evidence: "Clinician case routes use fixed synthetic fixtures and a backend-enforced demo role boundary."
+summary:
+  total_tasks: 3
+  completed_tasks: 3
+  in_progress_tasks: 0
+  pending_tasks: 0
+  completion_percentage: 100.0
+tasks:
+  - task_id: "t4"
+    description: "Establish the FastAPI backend foundation, API boundaries, and deferred provider/database decision docs."
+    status: "completed"
+    implementation:
+      files_changed:
+        - file: "backend/requirements.txt"
+          change_type: "added"
+          description: "Pinned FastAPI and Uvicorn."
+        - file: "backend/requirements-dev.txt"
+          change_type: "added"
+          description: "Pinned HTTPX and pytest."
+        - file: "backend/requirements-lock.txt"
+          change_type: "added"
+          description: "Pinned fully resolved runtime and test dependencies."
+        - file: "backend/app/main.py"
+          change_type: "added"
+          description: "Added synthetic status route and restricted local CORS."
+        - file: "backend/tests/test_main.py"
+          change_type: "added"
+          description: "Tested route response, method boundary, CORS, and OpenAPI."
+        - file: ".github/modernize/rearchitecture/artifacts/t4-backend-api-contract.md"
+          change_type: "added"
+          description: "Recorded API contract and safe boundary."
+        - file: ".github/modernize/rearchitecture/artifacts/t4-backend-provider-database-decisions.md"
+          change_type: "added"
+          description: "Recorded deferred identity/database decisions and gates."
+      commit_hash: ""
+      pr_link: ""
+    verification:
+      build_passed: true
+      test_results:
+        command: "& '.\\.venv\\Scripts\\python.exe' -m pytest backend\\tests -q"
+        passed: 4
+        failed: 0
+        skipped: 0
+        failures: []
+      notes: "Live GET /api/v1/health and /openapi.json returned HTTP 200. Additional checks recorded in the batch report."
+    upstream_trace:
+      plan_item: "Foundation / approved task 002"
+      requirements:
+        - "tasks.json#002-application-foundation.requirements"
+      full_trace: "approved task 002 -> t4 -> backend/app/main.py, backend/tests/test_main.py, and t4 backend artifacts"
+  - task_id: "t5"
+    description: "Implement the bounded synthetic-only explanation API."
+    status: "completed"
+    implementation:
+      files_changed:
+        - file: "backend/app/explanations.py"
+          change_type: "added"
+          description: "Fixed deterministic source-code synthetic explanation fixture."
+        - file: "backend/app/main.py"
+          change_type: "modified"
+          description: "Mounted the synthetic explanation route under /api/v1."
+        - file: "backend/tests/test_explanations.py"
+          change_type: "added"
+          description: "Covered deterministic output, labels, no request body, and method rejection."
+      commit_hash: ""
+      pr_link: ""
+    verification:
+      build_passed: true
+      test_results:
+        command: "& '.\\.venv\\Scripts\\python.exe' -m pytest backend\\tests -q"
+        passed: 8
+        failed: 0
+        skipped: 0
+        failures: []
+      notes: "Verified by the completed t5 backend artifact and batch report before t7."
+    upstream_trace:
+      plan_item: "Safe Demo Implementation / approved task 003"
+      requirements:
+        - "tasks.json#003-safe-demo-backend.requirements"
+      full_trace: "approved task 003 -> t5 -> backend/app/explanations.py and backend/tests/test_explanations.py"
+  - task_id: "t7"
+    description: "Implement synthetic clinician case-list/detail API and demo role boundary."
+    status: "completed"
+    implementation:
+      files_changed:
+        - file: "backend/app/clinician_cases.py"
+          change_type: "added"
+          description: "Fixed synthetic list/detail schemas, read-only routes, and exact role enforcement."
+        - file: "backend/app/main.py"
+          change_type: "modified"
+          description: "Mounted clinician routes and allowed the demo header for configured local CORS."
+        - file: "backend/tests/test_clinician_cases.py"
+          change_type: "added"
+          description: "Covered role boundaries, deterministic fixture data, unknown IDs, and bodyless methods."
+        - file: "backend/tests/test_main.py"
+          change_type: "modified"
+          description: "Verified prior routes, route inventory, and local CORS demo-header behavior."
+        - file: ".github/modernize/rearchitecture/artifacts/t7-backend-api-contract.md"
+          change_type: "added"
+          description: "Specified the case-list/detail and demo-role contract."
+      commit_hash: ""
+      pr_link: ""
+    verification:
+      build_passed: true
+      test_results:
+        command: "& '.\\.venv\\Scripts\\python.exe' -m pytest backend\\tests -q"
+        passed: 18
+        failed: 0
+        skipped: 0
+        failures: []
+      notes: "compileall, pip check, live health/explanation/role/case/OpenAPI probes passed."
+    upstream_trace:
+      plan_item: "Safe Demo Implementation / approved task 005 backend slice"
+      requirements:
+        - "tasks.json#005-clinician-demo-workflow.requirements"
+      full_trace: "approved task 005 -> t7 -> backend/app/clinician_cases.py, backend/app/main.py, and backend/tests/test_clinician_cases.py"
+pending_tasks: []
+untracked_changes: []
+traceability_chain:
+  - chain_id: "CARE-FOUNDATION-BACKEND"
+    requirement: "tasks.json#002-application-foundation.requirements"
+    plan_phase: "Foundation"
+    plan_item: "FastAPI backend foundation"
+    tasks:
+      - "t4"
+    files:
+      - "backend/app/main.py"
+      - "backend/tests/test_main.py"
+    status: "complete"
+  - chain_id: "CARE-EXPLANATION-DEMO"
+    requirement: "tasks.json#003-safe-demo-backend.requirements"
+    plan_phase: "Safe Demo Implementation"
+    plan_item: "Synthetic-only explanation API"
+    tasks:
+      - "t5"
+    files:
+      - "backend/app/explanations.py"
+      - "backend/tests/test_explanations.py"
+      - ".github/modernize/rearchitecture/artifacts/t5-backend-api-contract.md"
+    status: "complete"
+  - chain_id: "CARE-CLINICIAN-DEMO-BACKEND"
+    requirement: "tasks.json#005-clinician-demo-workflow.requirements"
+    plan_phase: "Safe Demo Implementation"
+    plan_item: "Clinician case review API and demo role boundary"
+    tasks:
+      - "t7"
+    files:
+      - "backend/app/clinician_cases.py"
+      - "backend/app/main.py"
+      - "backend/tests/test_clinician_cases.py"
+      - "backend/tests/test_main.py"
+      - ".github/modernize/rearchitecture/artifacts/t7-backend-api-contract.md"
+    status: "complete"
+validation:
+  passed: true
+  errors: []
+  warnings:
+    - "This backend checkpoint covers t4, t5, and t7 evidence only; the coordinator-owned board and approved plan/task/clarification files were not modified."
+  blocking_issues: []

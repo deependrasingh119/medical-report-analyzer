@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "CareLens modernization tasks for a synthetic-data patient and clinician report-assistance demo.",
+  "tasks": [
+    {
+      "type": "setupBaseline",
+      "id": "001-setup-baseline",
+      "description": "Capture the existing CareLens prototype behavior before implementation changes.",
+      "reason": "The current project is a static prototype with no test suite; a frozen baseline helps preserve its existing report-literacy intent.",
+      "requirements": "Snapshot the project root and record the observable current behavior of the overview, report selection, non-connected review action, and clinician preview. Use no real patient information and do not treat prototype-only screens as working integrations.",
+      "snapshotFolder": "."
+    },
+    {
+      "type": "transform",
+      "id": "002-application-foundation",
+      "description": "Establish the CareLens frontend and backend foundation for the expanded demo.",
+      "reason": "The current static files cannot support the requested patient and clinician application workflows or backend boundary.",
+      "requirements": "Replace the static-only application foundation with the requested Next.js 15, React 19, TypeScript, shadcn/ui, and Tailwind CSS frontend and a FastAPI/Python backend. Carry forward CareLens's visual direction, responsive layout, evergreen-browser support, and minimal state-management preference. Define clear frontend/backend contracts and document the architecture decisions still needed for a database and managed identity provider. No production database, real account provider, cloud deployment, or real patient-data processing is authorized in this task.",
+      "dependencies": [],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "true",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "003-safe-demo-backend",
+      "description": "Create a privacy-conscious backend boundary and bounded synthetic-data explanation flow.",
+      "reason": "Report assistance needs a backend contract, while real data and unvalidated clinical interpretation must remain disabled.",
+      "requirements": "Implement only the backend behavior needed for the demo using synthetic fixtures and a deterministic stubbed explanation. Keep explanations limited to plain-language descriptions of supplied synthetic values and clinician discussion questions; do not diagnose, triage, or recommend treatment. Clearly label generated content as illustrative and not a substitute for professional care. Do not accept, upload, persist, log, or transmit real medical files or PHI. Keep production AI and database integration disabled pending privacy/security review and clinical validation.",
+      "dependencies": [
+        "002-application-foundation"
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "true",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "004-patient-report-preparation",
+      "description": "Build the responsive patient report-preparation and consultation-summary demo.",
+      "reason": "Patients need a clear way to understand the demo workflow and prepare useful clinician discussions without relying on unvalidated medical advice.",
+      "requirements": "Build the patient-facing dashboard and report-preparation journey using synthetic data, aligned with the relevant public Health Nivaran workflow of sharing context, organizing report highlights, and preparing for a clinician visit. Include a clearly labeled local-only report-selection demonstration, synthetic report examples, bounded stub explanations, and a concise consultation summary/questions. Do not upload, read, save, or interpret real report files. Preserve CareLens styling and meet responsive and WCAG 2.2 AA requirements. Do not add telehealth, prescribing, pharmacy, mental-wellness, or health-goal integrations.",
+      "dependencies": [
+        "003-safe-demo-backend"
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "true",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "005-clinician-demo-workflow",
+      "description": "Build the role-aware clinician dashboard and synthetic case-review workflow.",
+      "reason": "Clinicians need a distinct view to review patient-prepared summaries while the product remains in a safe, non-production demo mode.",
+      "requirements": "Add clinician-facing dashboard and case-review screens using synthetic cases only. Include a demo role-aware experience and enforce authorization boundaries at the backend contract rather than relying solely on hidden UI. Show patient-prepared summaries and questions in a clinician-review context; do not enable real patient sharing, clinical decisions, or treatment recommendations. Keep production authentication disabled until a managed provider is selected and reviewed. Meet responsive and WCAG 2.2 AA requirements.",
+      "dependencies": [
+        "004-patient-report-preparation"
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "true",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "integrationTest",
+      "id": "006-integrationTest",
+      "description": "Build integration tests for CareLens workflows and run post-change verification.",
+      "reason": "The requested release must pass tests and accessibility checks across the complete user journeys.",
+      "requirements": "Add and run end-to-end tests for patient report preparation, synthetic explanation and summary, clinician case review, and role-boundary behavior. Exercise the frontend/backend contract with synthetic fixtures only. Verify responsive behavior on mobile, tablet, and desktop layouts and WCAG 2.2 AA accessibility, including keyboard navigation, focus visibility, labels, and meaningful announcements. Do not use real PHI or live clinical AI.",
+      "dependencies": [
+        "001-setup-baseline",
+        "002-application-foundation",
+        "003-safe-demo-backend",
+        "004-patient-report-preparation",
+        "005-clinician-demo-workflow"
+      ]
+    },
+    {
+      "type": "security",
+      "id": "007-privacy-security-and-dependency-review",
+      "description": "Review the demo for security, privacy boundaries, and dependency vulnerabilities.",
+      "reason": "CareLens handles health-related workflows, and the user requires privacy/security review before any real patient-data use.",
+      "requirements": "Perform a privacy and security review of the frontend/backend boundaries, role authorization, file-selection behavior, logging, secrets/configuration, and dependency vulnerabilities. Verify that real report content and PHI cannot be uploaded, persisted, or emitted in logs in this demo, and that production identity, database, and AI integrations remain disabled. Remediate findings in scope and record any residual risks. This task is a mandatory release gate, not approval to process real patient data; real-data enablement still requires explicit privacy/security approval and clinical validation.",
+      "dependencies": [
+        "006-integrationTest"
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "true",
+        "passUnitTests": "true"
+      }
+    }
+  ],
+  "metadata": {
+    "planName": "rearchitecture",
+    "projectName": "CareLens",
+    "language": "TypeScript and Python",
+    "createdAt": "2026-10-29T16:51:57+05:30",
+    "version": "1.0"
+  }
+}

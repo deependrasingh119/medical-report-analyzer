@@ -1,0 +1,76 @@
+metadata:
+  generated: "2026-10-29T16:34:12Z"
+  source_tasks: ".github/modernize/rearchitecture/.metadata/tasks.json"
+  last_updated: "2026-10-29T16:34:12Z"
+
+summary:
+  total_tasks: 1
+  completed_tasks: 1
+  in_progress_tasks: 0
+  pending_tasks: 0
+  completion_percentage: 100.0
+
+tasks:
+  - task_id: "004-patient-report-preparation"
+    description: "Build the responsive patient report-preparation and consultation-summary demo."
+    status: "completed"
+    implementation:
+      files_changed:
+        - file: "components/patient-preparation.tsx"
+          changes:
+            - change_type: "created"
+              description: "Added bodyless synthetic GET integration, fixed example view, safe question checkboxes, and page-local summary."
+        - file: "app/reports/page.tsx"
+          changes:
+            - change_type: "modified"
+              description: "Mounted the patient-preparation workflow."
+        - file: "app/globals.css"
+          changes:
+            - change_type: "modified"
+              description: "Added responsive and accessible preparation workflow styling."
+        - file: "tests/patient-preparation.test.tsx"
+          changes:
+            - change_type: "created"
+              description: "Covered GET request, no text/file controls, fixed selections, summary updates, and retry behavior."
+        - file: "vitest.config.ts"
+          changes:
+            - change_type: "modified"
+              description: "Fixed @ alias resolution and automatic JSX transform in Vitest."
+    verification:
+      build_passed: true
+      test_results:
+        command: "npm test"
+        passed: 6
+        failed: 0
+        skipped: 0
+        failures: []
+      notes: "npm run lint, npm run typecheck, npm run build, and the live synthetic explanation GET probe passed. Browser smoke remains unverified because the Chromium executable is unavailable."
+    upstream_trace:
+      plan_item: "Safe Demo Implementation: patient report preparation and consultation summary"
+      requirements:
+        - "004-patient-report-preparation"
+      full_trace: "tasks.json#004-patient-report-preparation → plan#Safe Demo Implementation → t6 → patient-preparation.tsx + reports route + focused tests"
+
+pending_tasks: []
+untracked_changes: []
+traceability_chain:
+  - chain_id: "TRACE-T6-PATIENT-PREPARATION"
+    requirement: "004-patient-report-preparation"
+    plan_phase: "Safe Demo Implementation"
+    plan_item: "Patient report preparation and consultation summary"
+    tasks:
+      - "004-patient-report-preparation"
+    files:
+      - "components/patient-preparation.tsx"
+      - "app/reports/page.tsx"
+      - "app/globals.css"
+      - "tests/patient-preparation.test.tsx"
+    status: "complete"
+
+validation:
+  passed: true
+  errors: []
+  warnings:
+    - "Browser smoke verification was unavailable because the Playwright Chromium executable is not installed."
+    - "Next.js build emitted an existing parent lockfile tracing-root warning."
+  blocking_issues: []

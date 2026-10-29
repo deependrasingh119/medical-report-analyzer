@@ -1,0 +1,72 @@
+metadata:
+  generated: "2026-10-29T16:42:33Z"
+  source_tasks: ".github/modernize/rearchitecture/.metadata/tasks.json"
+  last_updated: "2026-10-29T16:42:33Z"
+
+summary:
+  total_tasks: 1
+  completed_tasks: 1
+  in_progress_tasks: 0
+  pending_tasks: 0
+  completion_percentage: 100.0
+
+tasks:
+  - task_id: "005-clinician-demo-workflow"
+    description: "Build the responsive clinician dashboard and synthetic case-review experience."
+    status: "completed"
+    implementation:
+      files_changed:
+        - file: "components/clinician-dashboard.tsx"
+          changes:
+            - change_type: "created"
+              description: "Added validated fixed-case list/detail GETs with the required clinician demo header, safety labels, and role-denied/retry states."
+        - file: "app/clinicians/page.tsx"
+          changes:
+            - change_type: "modified"
+              description: "Mounted the synthetic clinician dashboard in the existing application shell."
+        - file: "app/globals.css"
+          changes:
+            - change_type: "modified"
+              description: "Added responsive clinician list/detail styling using existing CareLens tokens."
+        - file: "tests/clinician-dashboard.test.tsx"
+          changes:
+            - change_type: "created"
+              description: "Covered exact API requests, case selection, and 401/403 role-denied states."
+    verification:
+      build_passed: true
+      test_results:
+        command: "npm test"
+        passed: 10
+        failed: 0
+        skipped: 0
+        failures: []
+      notes: "npm run lint, npm run typecheck, and npm run build passed. Live local list/detail probes returned 200; missing and patient role probes returned 401 and 403. Browser-rendered accessibility and viewport verification remains downstream."
+    upstream_trace:
+      plan_item: "Safe Demo Implementation: clinician dashboard and case review"
+      requirements:
+        - "005-clinician-demo-workflow"
+      full_trace: "tasks.json#005-clinician-demo-workflow.requirements → Safe Demo Implementation → t8 → clinician dashboard, clinician route, responsive styles, and focused tests"
+
+pending_tasks: []
+untracked_changes: []
+traceability_chain:
+  - chain_id: "TRACE-T8-CLINICIAN-REVIEW"
+    requirement: "005-clinician-demo-workflow"
+    plan_phase: "Safe Demo Implementation"
+    plan_item: "Clinician dashboard and case review"
+    tasks:
+      - "005-clinician-demo-workflow"
+    files:
+      - "components/clinician-dashboard.tsx"
+      - "app/clinicians/page.tsx"
+      - "app/globals.css"
+      - "tests/clinician-dashboard.test.tsx"
+    status: "complete"
+
+validation:
+  passed: true
+  errors: []
+  warnings:
+    - "Browser-rendered responsive and automated accessibility verification remains for downstream validation."
+    - "Next.js reported its existing parent-directory lockfile tracing-root warning."
+  blocking_issues: []
