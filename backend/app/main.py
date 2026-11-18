@@ -6,6 +6,7 @@ from pydantic import BaseModel
 
 from backend.app.clinician_cases import router as clinician_cases_router
 from backend.app.explanations import router as explanations_router
+from backend.app.ocr import router as ocr_router
 
 
 class HealthStatus(BaseModel):
@@ -53,5 +54,6 @@ def get_health() -> HealthStatus:
 
 
 app.include_router(api_router, prefix="/api/v1")
+app.include_router(ocr_router, prefix="/api/v1")
 app.include_router(explanations_router, prefix="/api/v1")
 app.include_router(clinician_cases_router, prefix="/api/v1")

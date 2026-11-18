@@ -91,6 +91,7 @@ def test_openapi_exposes_health_explanation_and_clinician_demo_routes() -> None:
     assert response.status_code == 200
     assert set(response.json()["paths"]) == {
         "/api/v1/health",
+        "/api/v1/demo/ocr",
         "/api/v1/demo/explanation",
         "/api/v1/demo/clinician/cases",
         "/api/v1/demo/clinician/cases/{case_id}",

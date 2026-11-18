@@ -1364,4 +1364,224 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .local-ocr-entry-link,
+  .local-ocr-back-link {
+    margin: 0 0 18px;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .local-ocr-entry-link a,
+  .local-ocr-back-link a {
+    color: var(--green-dark);
+  }
+
+  .local-ocr-intro {
+    max-width: 760px;
+    color: #53665e;
+    line-height: 1.65;
+  }
+
+  .local-ocr-safety {
+    max-width: 900px;
+    margin: 24px 0;
+  }
+
+  .local-ocr-form,
+  .local-ocr-results {
+    max-width: 1100px;
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--paper);
+  }
+
+  .local-ocr-form {
+    display: grid;
+    gap: 18px;
+  }
+
+  .local-ocr-file-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: var(--green-dark);
+  }
+
+  .local-ocr-file-label span {
+    display: grid;
+    gap: 5px;
+  }
+
+  .local-ocr-file-label small,
+  .local-ocr-selected-file {
+    color: #53665e;
+  }
+
+  .local-ocr-file-input {
+    max-width: 100%;
+  }
+
+  .local-ocr-confirmation {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 760px;
+    line-height: 1.55;
+  }
+
+  .local-ocr-confirmation input {
+    flex: 0 0 auto;
+    margin-top: 4px;
+  }
+
+  .local-ocr-submit {
+    width: fit-content;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--green-dark);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .local-ocr-submit:disabled {
+    background: #71817c;
+    cursor: not-allowed;
+  }
+
+  .local-ocr-status,
+  .local-ocr-result-notice {
+    margin: 18px 0;
+    color: #53665e;
+    line-height: 1.55;
+  }
+
+  .local-ocr-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 900px;
+    margin: 18px 0;
+    padding: 14px;
+    border: 1px solid #e1b5b5;
+    border-radius: 8px;
+    background: #fff7f6;
+    color: #762f2a;
+  }
+
+  .local-ocr-error p {
+    margin: 0;
+  }
+
+  .local-ocr-results {
+    margin-top: 24px;
+  }
+
+  .local-ocr-page {
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .local-ocr-page-grid {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+    gap: 20px;
+    align-items: start;
+  }
+
+  .local-ocr-preview {
+    margin: 0;
+  }
+
+  .local-ocr-image-frame {
+    position: relative;
+  }
+
+  .local-ocr-preview img {
+    display: block;
+    width: 100%;
+    max-height: 620px;
+    object-fit: contain;
+    border: 1px solid var(--line);
+    background: #f7f8f6;
+  }
+
+  .local-ocr-word-overlay {
+    position: absolute;
+    border: 1px solid #bd4d14;
+    background: #fbbf2430;
+    pointer-events: none;
+  }
+
+  .local-ocr-preview figcaption,
+  .local-ocr-transcription > p {
+    margin: 8px 0;
+    color: #53665e;
+    font-size: 0.8125rem;
+  }
+
+  .local-ocr-transcription pre {
+    overflow: auto;
+    max-height: 620px;
+    margin: 0;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #f9fbf9;
+    font: inherit;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .local-ocr-transcription details {
+    margin-top: 14px;
+  }
+
+  .local-ocr-transcription summary {
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .local-ocr-word-list {
+    max-height: 300px;
+    overflow: auto;
+    padding-left: 22px;
+    font-size: 0.8125rem;
+  }
+
+  .local-ocr-word-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 5px 0;
+  }
+
+  .local-ocr-word-list li span:last-child {
+    color: #53665e;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .local-ocr-no-text {
+    padding: 14px;
+    border-radius: 8px;
+    background: #fff8ec;
+    color: #754d18;
+  }
+
+  @media (max-width: 700px) {
+    .local-ocr-page-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .local-ocr-word-list li {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 3px;
+    }
+  }
 }
